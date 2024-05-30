@@ -1,0 +1,323 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+
+ @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+ *, *:before, *:after {
+   box-sizing: border-box;
+ }
+ 
+ body {
+   background: #C5DDEB;
+   font: 14px/20px "Lato", Arial, sans-serif;
+   padding: 40px 0;
+   color: white;
+ }
+ 
+ .chapie-chat {
+     margin: 0 auto;
+     border-radius: 5px;
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     z-index: 99999999999999999;
+     height: auto;
+     float: right;
+ }
+ li {
+     list-style: none;
+ }
+ .chapie-chat-box {
+     display: flex;
+     width: 750px;
+ }
+ .people-list {
+   width: 100%;
+   float: left;
+   display: none;
+ }
+ .people-list.expanded {
+     display: block;
+ 
+ }
+ .people-list .search {
+   padding: 0px;
+   position: relative;
+ }
+ .people-list input {
+   border-radius: 3px;
+   border: none;
+   padding: 14px;
+   color: white;
+   background: #6A6C75;
+   width: 100%;
+   font-size: 14px;
+ }
+ .people-list .fa-search {
+     position: absolute;
+     right: 17px;
+     top: 13px;
+     font-size: 21px;
+ }
+ .people-list ul {
+     padding: 15px 5px 5px 5px;
+     height: 460px;
+     overflow: scroll;
+ }
+ .people-list ul li {
+   padding-bottom: 20px;
+ }
+ .people-list img {
+   float: left;
+   border-radius: 50%;
+ }
+ .people-list .about {
+   float: left;
+   margin-top: 8px;
+ }
+ .people-list .about {
+   padding-left: 8px;
+ }
+ .people-list .status {
+   color: #92959E;
+ }
+ 
+ .chat {
+   width: 100%;
+   float: left;
+   background: #F2F5F8;
+   border-top-right-radius: 5px;
+   border-bottom-right-radius: 5px;
+   color: #434651;
+   display: none;
+ }
+ .chat.expanded {
+   display: block;
+ }
+ .chat .chat-header {
+     padding: 10px 5px 0px 10px;
+     border-bottom: 2px solid white;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+ .chat .backchatuser {
+     color: #000;
+     font-size: 18px;
+ }
+ .chat .chat-header img {
+     float: left;
+     width: 30px;
+     height: 30px;
+ }
+ .chat .chat-header .chat-about {
+   float: left;
+   padding-left: 10px;
+   margin-top: 6px;
+ }
+ .chat .chat-header .chat-with {
+   font-weight: bold;
+   font-size: 16px;
+ }
+ .chat .chat-header .chat-num-messages {
+   color: #92959E;
+ }
+ .chat .chat-header .fa-star {
+   float: right;
+   color: #D8DADF;
+   font-size: 20px;
+   margin-top: 12px;
+ }
+ .chat .chat-history {
+     padding: 10px 10px 0px 10px;
+     border-bottom: 2px solid white;
+     overflow-y: scroll;
+     height: 360px;
+ }
+ ul.chat-history-box {
+     padding: 5px 5px 5px 5px;
+ }
+ .chat .chat-history .message-data {
+   margin-bottom: 15px;
+ }
+ .chat .chat-history .message-data-time {
+   color: #a8aab1;
+   padding-left: 6px;
+ }
+ .chat .chat-history .message {
+     color: white;
+     padding: 10px 10px 10px 10px;
+     line-height: 22px;
+     font-size: 14px;
+     border-radius: 7px;
+     margin-bottom: 15px;
+     width: 85%;
+     position: relative;
+ }
+ .chat .chat-history .message:after {
+     bottom: 99%;
+     left: 7%;
+     border: solid transparent;
+     content: " ";
+     height: 0;
+     width: 0;
+     position: absolute;
+     pointer-events: none;
+     border-bottom-color: #86BB71;
+     border-width: 10px;
+     margin-left: 0;
+ }
+ .chat .chat-history .my-message {
+   background: #86BB71;
+ }
+ .chat .chat-history .other-message {
+   background: #94C2ED;
+ }
+ .chat .chat-history .other-message:after {
+   border-bottom-color: #94C2ED;
+   left: 75%;
+ }
+ .chat .chat-message {
+   padding: 0px 0px 0px 0px;
+   position: relative;
+ }
+ .chat .chat-message textarea {
+     width: 100%;
+     border: none;
+     padding: 5px 10px 5px 10px;
+     font: 14px / 14px "Lato", Arial, sans-serif;
+     margin: 0 5px 0 3px;
+     border-radius: 5px;
+     resize: none;
+ }
+ .chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
+   font-size: 16px;
+   color: gray;
+   cursor: pointer;
+ }
+ .chat .chat-message .send-message {
+     position: absolute;
+     top: 13px;
+     right: 0;
+     font-size: 24px;
+     border: none;
+     background: transparent;
+     font-weight: bold;
+     width: 50px;
+ }
+ .chat .chat-message .send-message:hover {
+   color: #75b1e8;
+ }
+ 
+ .chat-message button {
+     border: none;
+ }
+ 
+ .online, .offline, .me {
+   margin-right: 3px;
+   font-size: 10px;
+ }
+ 
+ .online {
+   color: #86BB71;
+ }
+ 
+ .offline {
+   color: #E38968;
+ }
+ 
+ .me {
+   color: #94C2ED;
+ }
+ 
+ .align-left {
+   text-align: left;
+ }
+ 
+ .align-right {
+   text-align: right;
+ }
+ 
+ .float-right {
+   float: right;
+ }
+ 
+ .clearfix:after {
+   visibility: hidden;
+   display: block;
+   font-size: 0;
+   content: " ";
+   clear: both;
+   height: 0;
+ }
+ 
+ 
+ 
+ .chat-opn{
+         display: none;
+ }
+ .chat-cls{
+     display: block;
+ }
+ .expanded .chat-opn{
+     display: block;
+ }
+ .expanded .chat-cls{
+     display: none;
+ }
+ 
+ .chapie-chat .icon {
+   display: flex;
+   justify-content: end;
+   align-items: center;
+   text-align: center;
+   cursor: pointer;
+   color: #ffffff;
+   background: linear-gradient(135deg, rgb(15 81 50) 0%, rgb(9 73 44) 100%);
+   width: 50px;
+   height: 50px;
+   float: right;
+   border-radius: 10px;
+   padding: 10px 20px 10px 15px;
+   transition: 0.3s all;
+   box-shadow: 0 30px 50px #0000000d;
+   overflow: hidden;
+ }
+ .chapie-chat .icon:hover {
+   box-shadow: 0 5px 20px rgb(209 231 221);
+ }
+ .chapie-chat .icon .user {
+   visibility: hidden;
+   margin-left: -100px;
+ }
+ .chapie-chat .icon.expanded {
+   width: 350px;
+   justify-content: space-between;
+ }
+ .chapie-chat .chapie-chat-box.expanded {
+     visibility: visible;
+     height: 500px;
+     width: 350px;
+ }
+ .chapie-chat .icon.expanded .user {
+   visibility: visible;
+   margin-left: 0;
+   transition: 0.5s;
+ }
+ 
+ .chapie-chat .chapie-chat-box {
+   background-color: #fff;
+   border: 1px solid #0f513238;
+   box-shadow: 0 30px 50px #0000000d;
+   padding: 10px;
+   margin-bottom: 10px;
+   height: 390px;
+   border-radius: 10px;
+   overflow: hidden;
+   transition: height 0.7s;
+   width: 0;
+   height: 0;
+   visibility: hidden;
+ }
