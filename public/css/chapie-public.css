@@ -8,14 +8,7 @@
  *, *:before, *:after {
    box-sizing: border-box;
  }
- 
- body {
-   background: #C5DDEB;
-   font: 14px/20px "Lato", Arial, sans-serif;
-   padding: 40px 0;
-   color: white;
- }
- 
+
  .chapie-chat {
      margin: 0 auto;
      border-radius: 5px;
@@ -26,7 +19,7 @@
      height: auto;
      float: right;
  }
- li {
+ .chapie-chat li {
      list-style: none;
  }
  .chapie-chat-box {
@@ -70,16 +63,27 @@
    padding-bottom: 20px;
  }
  .people-list img {
-   float: left;
-   border-radius: 50%;
+  float: left;
+  border-radius: 50%;
+  width: 45px;
+  margin-top: 10px;
+  border: 2px solid #858383;
  }
  .people-list .about {
    float: left;
    margin-top: 8px;
- }
- .people-list .about {
    padding-left: 8px;
+   width: 80%;
  }
+ .people-list .about-user .name {
+  color: #004e31;
+  font-weight: 600;
+}
+ .people-list .about .about-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
  .people-list .status {
    color: #92959E;
  }
@@ -243,7 +247,6 @@
  .float-right {
    float: right;
  }
- 
  .clearfix:after {
    visibility: hidden;
    display: block;
@@ -252,9 +255,6 @@
    clear: both;
    height: 0;
  }
- 
- 
- 
  .chat-opn{
          display: none;
  }
@@ -321,3 +321,28 @@
    height: 0;
    visibility: hidden;
  }
+
+ .people-list.login_first {
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  margin-bottom: -10px;
+}
+.chapie-chat-box.login_first_outer {
+  background: #004e32;
+  color: #fff;
+}
+#chat-history-box .no-messages {
+  text-align: center;
+  padding: 50px;
+}
+.people-list .about .new-message {
+  font-weight: 600;
+  color: #000000;
+  animation: blinker 2s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

@@ -73,10 +73,10 @@ class Chapie_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( 'chapie-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'chapie-bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'chapie-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/chapie-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'chapie-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css', array(), CHAPIE_VERSION , 'all' );
+		wp_enqueue_style( 'chapie-bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css', array(), CHAPIE_VERSION , 'all' );
+		wp_enqueue_style( 'chapie-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', array(), CHAPIE_VERSION , 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/chapie-public.css', array(), CHAPIE_VERSION , 'all' );
 		
 	}
 
@@ -99,12 +99,12 @@ class Chapie_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( 'chapie-jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', array(), $this->version, true );
-		wp_enqueue_script( 'chapie-handlebars', 'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js', array(), $this->version, true );
-		wp_enqueue_script( 'chapie-list', 'https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js', array(), $this->version, true );
-		wp_enqueue_script( 'chapie-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js', array(), $this->version, true );
-		wp_enqueue_script( 'chapie-script', plugin_dir_url( __FILE__ ) . 'js/chapie-public.js', array( 'jquery' ), time(), true );
-		wp_localize_script( 'chapie-script', 'chapie_ajax_object', array('ajax_url' => admin_url( 'admin-ajax.php' ),'nonce'    => wp_create_nonce( 'chapie_nonce' ),) );
+		wp_enqueue_script( 'chapie-jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', array(), CHAPIE_VERSION, true );
+		wp_enqueue_script( 'chapie-handlebars', 'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js', array(), CHAPIE_VERSION, true );
+		wp_enqueue_script( 'chapie-list', 'https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js', array(), CHAPIE_VERSION, true );
+		wp_enqueue_script( 'chapie-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js', array(), CHAPIE_VERSION, true );
+		wp_enqueue_script( 'chapie-script', plugin_dir_url( __FILE__ ) . 'js/chapie-public.js', array( 'jquery' ), CHAPIE_VERSION, true );
+		wp_localize_script( 'chapie-script', 'chapie_ajax_object', array('ajax_url' => admin_url( 'admin-ajax.php' ),'nonce' => wp_create_nonce( 'chapie_nonce' ),) );
 
 	}
 

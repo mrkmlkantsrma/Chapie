@@ -77,13 +77,22 @@ class Chapie_Ajax {
         $user_id = $_POST['reciever'];
         $reciever_id = $wpdb->get_var($wpdb->prepare("SELECT unique_id FROM $chapie_chat_usermeta WHERE user_id = %d", $user_id));
 
+        $current_time = time();
+        $timezone_offset_minutes = 330;
+        $timezone_name = timezone_name_from_abbr("", $timezone_offset_minutes*60, false);
+        date_default_timezone_set($timezone_name);
+
+        $currentDate = new DateTime();
+        $current_time = $currentDate->format('Y-m-d h:i A');
+
         $data = array(
             'incoming_message_id' => $_SESSION['unique_id'],
             'outgoing_message_id' => $reciever_id,
             'message' => sanitize_text_field($_POST['message']),
+            'message_time' => $current_time
         );
 
-        $format = array( '%d', '%d', '%s');
+        $format = array( '%d', '%d', '%s', '%s');
     
         $inserted = $wpdb->insert( $chapie_chat_metadata, $data, $format );
     
@@ -134,39 +143,54 @@ class Chapie_Ajax {
                 "SELECT messages.*, users.* 
                  FROM {$chapie_chat_metadata} AS messages 
                  LEFT JOIN {$chapie_chat_usermeta} AS users 
-                 ON users.ID = messages.outgoing_message_id 
+                 ON users.unique_id = messages.incoming_message_id 
                  WHERE (messages.outgoing_message_id = %d AND messages.incoming_message_id = %d) 
                  OR (messages.outgoing_message_id = %d AND messages.incoming_message_id = %d) 
                  ORDER BY messages.message_id",
                 $outgoing_id, $incoming_id, $incoming_id, $outgoing_id
             )
         );
-    
+        $count = count($results);
+        $output = '<input type="hidden" value="'.$count.'" class="message_count">';
+
         if ($results) {
             foreach ($results as $row) {
-                // echo '<pre>';
-                // print_r($row);
-                // echo '</pre>';
+                // echo '<pre>'; print_r($row); echo '</pre>';
+
+                $timezone_offset_minutes = 330;
+                $timezone_name = timezone_name_from_abbr("", $timezone_offset_minutes*60, false);
+                date_default_timezone_set($timezone_name);
+                $message_time = $row->message_time;
+                $dateTime = DateTime::createFromFormat('Y-m-d h:i A', $message_time);
+
+                // Get the current date and time in the site's timezone
+                $currentDate = new DateTime();
+                // Check if the message time is today
+                if ($dateTime->format('Y-m-d') == $currentDate->format('Y-m-d')) {
+                    $message_timeing = $dateTime->format('h:i A') . ", Today";
+                } else {
+                    $message_timeing = $dateTime->format('h:i A, Y-m-d');
+                }
                 if ($row->outgoing_message_id == $outgoing_id) {
                     $output .= '<li>
                                     <div class="message-data">
-                                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                                        <span class="message-data-time">10:12 AM, Today</span>
+                                        <span class="message-data-name"><i class="fa fa-circle online"></i>'. ucfirst($row->fname).'</span>
+                                        <span class="message-data-time">'.$message_timeing.'</span>
                                     </div>
                                     <div class="message my-message">' . esc_html($row->message) . '</div>
                                 </li>';
                 } else {
                     $output .= '<li class="clearfix">
                                     <div class="message-data align-right">
-                                        <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
-                                        <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+                                        <span class="message-data-time" >'.$message_timeing.'</span>
+                                        <span class="message-data-name" >'.ucfirst($row->fname).'</span> <i class="fa fa-circle me"></i>
                                     </div>
                                     <div class="message other-message float-right">' . esc_html($row->message) . '</div>
                                 </li>';
                 }
             }
         } else {
-            $output .= '<div class="text">No messages to show.</div>';
+            $output .= '<div class="no-messages">No messages to show.</div>';
         }
     
         echo $output;

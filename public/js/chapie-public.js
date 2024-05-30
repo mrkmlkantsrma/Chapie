@@ -38,6 +38,7 @@
 		const chat_with = $(".chat-header .chat-with");
 		const chat_message_count = $(".chat-header .chat-num-messages");
 		const chat_with_status = $(".chapie-chat .status");
+		const chat_history_box = $("#chat-history-box");
 
 	
 		chat_btn.click(() => {
@@ -49,6 +50,7 @@
 	  
 		chat_user.click(function() {
 			const userId = $(this).attr('user-id');
+			$(chat_history_box).html('');
 			
 			$.ajax({
 				url: chapie_ajax_object.ajax_url,
@@ -69,7 +71,7 @@
 						setTimeout(() => {
 							chat_start.toggleClass("expanded");
 							user_list.toggleClass("expanded");
-						}, 100);
+						}, 800);
 						// Handle the user data (e.g., display it on the page)
 					} else {
 						console.log('Error:', response.data);
@@ -208,13 +210,19 @@
 						if(!chatBox.classList.contains("active")) {
 							// scrollToBottom();
 						}
+						var messagesnum = jQuery(".chat-history-box .message_count").val();
+						if(messagesnum > 0){
+							jQuery(".chat-about .chat-num-messages").text(messagesnum + ' messages');
+						}else{
+							jQuery(".chat-about .chat-num-messages").text('');
+						}
 					}
 				}
 			};
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.send("action=get_chapie_chat&incoming_id=" + incoming_id);
 		}
-	}, 500);
+	}, 1000);
 	  
 
 })( jQuery );

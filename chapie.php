@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 // Plugin version.
-define( 'CHAPIE_VERSION', '1.0.0' );
+define( 'CHAPIE_VERSION', time() );
 define( 'CHAPIE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CHAPIE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'CHAPIE_PLUGIN_FILE', __FILE__ );
@@ -70,9 +70,9 @@ function deactivate_chapie() {
 register_activation_hook( __FILE__, 'activate_chapie' );
 register_deactivation_hook( __FILE__, 'deactivate_chapie' );
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 /**
  * The core plugin class that is used to define internationalization,

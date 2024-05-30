@@ -19,6 +19,10 @@ if (!session_id()) {
     session_start();
 }
 
+global $wpdb;
+$chapie_chat_usermeta = $wpdb->prefix . 'chapie_chat_usermeta';
+$chapie_chat_metadata = $wpdb->prefix . 'chapie_chat_metadata';
+
 if (isset($_SESSION['unique_id']) && isset($_SESSION['user_id'])) {
     $unique_id = $_SESSION['unique_id'];
     $user_id = $_SESSION['user_id'];
@@ -38,9 +42,9 @@ if (isset($_SESSION['unique_id']) && isset($_SESSION['user_id'])) {
 ?>
 
 <div class="chapie-chat clearfix">
-    <div class="chapie-chat-box">
-        <div class="people-list expanded" id="people-list">
-        <?php if (is_user_logged_in()) { ?>
+    <?php if (is_user_logged_in()) { ?>
+        <div class="chapie-chat-box">
+            <div class="people-list expanded" id="people-list">
                 <div class="search">
                     <input type="text" placeholder="search" />
                     <i class="fa fa-search"></i>
@@ -50,26 +54,34 @@ if (isset($_SESSION['unique_id']) && isset($_SESSION['user_id'])) {
                     <?php $current_user = wp_get_current_user();
                         $current_user_id = $current_user->ID;
                         $users = get_users();
+
                         $count = 0;
-                        $status = 'offline';
-                        $img = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg';
+                        $statusColor = 'offline';
+                        $img = 'https://devtechytrion.com/wp-content/plugins/chapie/public/images/avtar.jpg';
                         foreach ($users as $user) { 
                             if($current_user_id != $user->ID){
+                                $status = $wpdb->get_var($wpdb->prepare("SELECT status FROM $chapie_chat_usermeta WHERE user_id = %d", $user->ID));
+                                if($status == 'Active now'){
+                                    $statusColor = 'online';
+                                }else{
+                                    $statusColor = 'offline';
+                                }
                                 if ($count % 2 == 0) {
-                                $status = 'online';
-                                $img = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg';
+                                    $img = 'https://devtechytrion.com/wp-content/plugins/chapie/public/images/avtar.jpg';
                                 } else {
-                                    $status = 'offline';
-                                    $img = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg';
+                                    $img = 'https://devtechytrion.com/wp-content/plugins/chapie/public/images/avtar.jpg';
                                 }
                                 ?>
                                 <a href="javascript:void(0);" class="chatuser" user-id="<?php echo $user->ID; ?>">
                                     <li class="clearfix">
                                         <img src="<?php echo $img; ?>" alt="avatar" />
                                         <div class="about">
-                                            <div class="name"><?php echo $user->display_name; ?></div>
-                                            <div class="status">
-                                            <i class="fa fa-circle <?php echo $status; ?>"></i> <?php echo $status; ?>
+                                            <div class="about-inner">
+                                                <div class="about-user">
+                                                    <div class="name"><?php echo $user->display_name; ?></div>
+                                                    <div class="status"><i class="fa fa-circle <?php echo $statusColor; ?>"></i> <?php echo ucfirst($statusColor); ?></div>
+                                                </div>
+                                                <div class="new-message">New Message</div>
                                             </div>
                                         </div>
                                     </li>
@@ -79,12 +91,16 @@ if (isset($_SESSION['unique_id']) && isset($_SESSION['user_id'])) {
                         }
                     ?>
                 </ul>
-            <?php }else{ ?>
-                <div class="login_first" style="background-image:(<?php echo CHAPIE_PLUGIN_PUBLIC_IMAGES_URL; ?>/login_first.jpg);">
-                    <p>Please Login to website.</p>
+            </div>
+        <?php }else{ ?>
+            <div class="chapie-chat-box login_first_outer">
+                <div class="people-list expanded login_first" style="background-image: url(<?php echo CHAPIE_PLUGIN_PUBLIC_IMAGES_URL; ?>/login_first2.png);" >
+                    <div class="login_first_inner">
+                        <p>Please Login to website.</p>
+                    </div>
                 </div>
-           <?php } ?>
-        </div>
+        <?php } ?>
+
         <div class="chat">
         <div class="chat-header clearfix">
             <a href="javascript:void(0);" class="backchatuser"><i class="bi bi-arrow-left-circle"></i></a>
